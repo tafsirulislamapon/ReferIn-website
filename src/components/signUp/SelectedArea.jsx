@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { dummyUser } from "@/constants/dummyUser"; // Import dummyUser
 
 export default function SelectedArea({ selected, setSelected }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [checkboxes, setCheckboxes] = useState({
     inBetweenJobs: false,
@@ -23,7 +26,9 @@ export default function SelectedArea({ selected, setSelected }) {
   const handleOptionClick = (option) => {
     setSelected(option);
     setIsOpen(false);
-    // Reset checkboxes when changing options
+    
+    // Remove localStorage usage
+    // Instead, use the callback to update parent state only
     setCheckboxes({
       inBetweenJobs: false,
       selfEmployed: false,

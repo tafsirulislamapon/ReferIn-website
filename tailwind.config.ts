@@ -20,10 +20,25 @@ const config: Config = {
           DEFAULT: '#08498E',
           hover: '#063a75',  
         }
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { 
+            opacity: '0', 
+            transform: 'translate(-50%, -20px)' 
+          },
+          '100%': { 
+            opacity: '1', 
+            transform: 'translate(-50%, 0)' 
+          }
+        }
+      },
+      animation: {
+        'fade-in': 'fade-in 0.3s ease-out'
       }
     },
   },
   plugins: [],
-};
+} as const;
 
 export default config; 

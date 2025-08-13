@@ -51,7 +51,7 @@ export default function CreateAccount({ onComplete }) {
           Continue with LinkedIn
         </Button>
 
-        <Button
+        {/* <Button
           variant="outline"
           className="w-full h-12 flex items-center justify-center gap-2 text-gray-700 font-normal"
         >
@@ -62,7 +62,7 @@ export default function CreateAccount({ onComplete }) {
             height={24}
           />
           Continue with Google
-        </Button>
+        </Button> */}
       </div>
 
       {/* Divider */}
@@ -134,7 +134,7 @@ export default function CreateAccount({ onComplete }) {
       <div className="text-center mt-6">
         <p className="text-gray-600">
           Already have an account?{" "}
-          <a href="#" className="text-[#08498E] font-medium hover:underline">
+          <a href="/sign-in" className="text-[#08498E] font-medium hover:underline">
             Sign in now
           </a>
         </p>

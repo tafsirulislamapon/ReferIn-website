@@ -5,7 +5,12 @@ import Image from 'next/image';
 import confetti from 'canvas-confetti';
 import { useRouter } from 'next/navigation';
 
-export default function Confetti({ userName = "John Adam", userImage = "/fallbackUserImg.png" }) {
+export default function Confetti({ 
+  userName = "John Adam", 
+  userImage = "/fallbackUserImg.png",
+  temporary = false, // Add temporary prop
+  message // Add custom message prop
+}) {
   const router = useRouter();
 
   useEffect(() => {
@@ -14,7 +19,7 @@ export default function Confetti({ userName = "John Adam", userImage = "/fallbac
       confetti({
         particleCount: 50,
         spread: 70,
-        origin: { y: 0.3, x: Math.random() }, // Start higher up
+        origin: { y: 0.3, x: Math.random() },
         colors: ['#ffffff', '#2E1FFF', '#0C549F']
       });
     };
@@ -25,16 +30,19 @@ export default function Confetti({ userName = "John Adam", userImage = "/fallbac
     // Continuous bursts
     const interval = setInterval(triggerConfetti, 2000);
 
-    // Redirect after 5 seconds
-    const timer = setTimeout(() => {
-      router.push('/referin-ai');
-    }, 5000);
+    // Only redirect if not in temporary mode
+    let timer;
+    if (!temporary) {
+      timer = setTimeout(() => {
+        router.push('/referin-ai');
+      }, 5000);
+    }
 
     return () => {
       clearInterval(interval);
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
-  }, [router]);
+  }, [router, temporary]);
 
   return (
     <div 
@@ -66,27 +74,29 @@ export default function Confetti({ userName = "John Adam", userImage = "/fallbac
             padding: '3rem'
           }}
         >
-          {/* Profile image */}
-          <div className="w-24 h-24 mx-auto mb-6 relative">
-            <div className="absolute inset-0 rounded-full border-4 border-white" />
-            <Image
-              src={userImage}
-              alt={userName}
-              width={96}
-              height={96}
-              className="rounded-full object-cover"
-              priority
-            />
-          </div>
+          {/* Only show profile image if not temporary */}
+          {!temporary && (
+            <div className="w-24 h-24 mx-auto mb-6 relative">
+              <div className="absolute inset-0 rounded-full border-4 border-white" />
+              <Image
+                src={userImage}
+                alt={userName}
+                width={96}
+                height={96}
+                className="rounded-full object-cover"
+                priority
+              />
+            </div>
+          )}
 
-          {/* Network name */}
+          {/* Network name or custom message */}
           <h1 className="text-4xl font-clash font-bold text-white mb-3">
-            "{userName}'s Software Network"
+            {temporary ? userName : `"${userName}'s Software Network"`}
           </h1>
 
           {/* Success message */}
           <p className="text-white/90 font-satoshi text-lg">
-            Congratulation, Your network has been created successfully.
+            {message || "Congratulation, Your network has been created successfully."}
           </p>
         </div>
       </div>
