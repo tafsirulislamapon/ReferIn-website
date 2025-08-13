@@ -47,7 +47,6 @@ export default function SeekerAiPov() {
     // Reset all other states
     setShowCards(false);
     setShowResults(false);
-    setShowSuccess(false);
   };
 
   const handleGoBack = () => {

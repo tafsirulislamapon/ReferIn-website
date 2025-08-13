@@ -3,9 +3,12 @@ import { useDropzone } from 'react-dropzone';
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import BlueTick from '../ui/BlueTick';
+import SignUpModal from '../signUp/Signup-Modals/SignUpModal';
 
 export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }) {
   const [cvFile, setCvFile] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     // Enhanced confetti effect function
@@ -78,16 +81,31 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
     onPayment(); // This will trigger the state change in parent component
   };
 
+  const handlePaidClick = () => {
+    setSelectedOption("paid");
+    setIsModalOpen(true);
+  };
+
+  const handleFreeClick = () => {
+    setSelectedOption("free");
+    setIsModalOpen(true);
+  };
+
+  const handleModalComplete = (option) => {
+    if (option === "paid") {
+      onPayment(); // Transition to PaidSeeker
+    } else {
+      onGoToLinkedIn(); // Transition to LinkedIn Post
+    }
+  };
+
   return (
     <div className="w-full lg:w-1/2 flex justify-center items-center p-3 xs:p-4 md:p-6 lg:p-8 overflow-hidden">
       <div className="bg-white/5 backdrop-blur-[2px] rounded-3xl p-6 sm:p-8 w-full max-w-[900px] relative">
           {/* Stats Section */}
-          <div className="space-y-3 mb-8">
+          <div className="space-y-3 mb-8 text-center">
             <div className="bg-[#2563EB]/20 backdrop-blur-md rounded-xl p-4 text-white text-2xl sm:text-3xl font-bold">
-              2 at this company
-            </div>
-            <div className="bg-[#2563EB]/20 backdrop-blur-md rounded-xl p-4 text-white text-2xl sm:text-3xl font-bold">
-              3 at other companies
+              Here are your matches
             </div>
           </div>
 
@@ -152,7 +170,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
             <div className="space-y-4 mt-8">
               {/* Paid Button */}
               <button
-                onClick={handlePaymentClick}
+                onClick={handlePaidClick}
                 className="w-full bg-[#10B981] hover:bg-[#10B981]/90 rounded-xl p-4 transition-colors"
               >
                 <div className="flex justify-between items-center">
@@ -169,7 +187,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
 
               {/* Free Option Button */}
               <button
-                onClick={onGoToLinkedIn}
+                onClick={handleFreeClick}
                 className="w-full border border-white/20 hover:bg-white/5 rounded-xl p-4 transition-colors group"
               >
                 <div className="flex justify-between items-center">
@@ -186,6 +204,14 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
             </div>
           </div>
         </div>
+
+      {/* Modal */}
+      <SignUpModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        selectedOption={selectedOption}
+        onComplete={handleModalComplete}  // Add this new prop
+      />
     </div>
   );
 }

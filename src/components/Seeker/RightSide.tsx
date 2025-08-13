@@ -95,7 +95,7 @@ export default function RightSide({
 
           <input
             type="text"
-            placeholder="Enter url of job spec here"
+            placeholder="Enter url of job spec or Job Title, location and type of mode of work. eg: 'Data Analyst / Hybrid / London, UK'"
             value={jobUrl}
             onChange={(e) => setJobUrl(e.target.value)}
             className="w-full p-3 lg:p-4 rounded-xl bg-white/10 mb-3 lg:mb-4 text-center text-sm lg:text-base text-white placeholder:text-white/70"
