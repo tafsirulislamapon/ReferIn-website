@@ -10,7 +10,7 @@ const cardInfo = [
     rating: 5.0,
     profileImg: "/fallbackUserImg.png",
     vacancies: "3+ Vacancies",
-     name: "Senior Designer",
+    name: "Senior Designer",
     linkedInUrl: "#"
   },
   {
@@ -23,7 +23,6 @@ const cardInfo = [
     vacancies: "3+ Vacancies",
     name: "Suhaib Safwan",
     linkedInUrl: "https://www.linkedin.com/in/suhaib-safwan/"
-   
   },
   {
     position: "Senior Software Engineer",
@@ -38,7 +37,7 @@ const cardInfo = [
   },
 ];
 
-export default function LeftSide({ showCards = false, hasPaid = false }) {
+export default function LeftSide({ hasPaid = false }) {
   return (
     <div className="w-full lg:w-1/2 flex justify-center items-center p-3 xs:p-4 md:p-6 lg:p-8 overflow-hidden">
       <div className="relative bg-white/5 backdrop-blur-[2px] rounded-3xl p-3 xs:p-4 sm:p-6 lg:p-8 w-full max-w-[900px] overflow-x-hidden">
@@ -55,63 +54,38 @@ export default function LeftSide({ showCards = false, hasPaid = false }) {
         </div>
 
         <div className="relative min-h-[400px] xs:min-h-[450px] flex flex-col justify-center items-center">
-          {!showCards ? (
-            // Initial state - showing welcome message
-            <div className="text-center text-white max-w-[600px] mx-auto">
-              <h2 className="text-2xl xs:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Welcome to Referin AI
-              </h2>
-              <p className="text-base xs:text-lg lg:text-xl mb-4 leading-relaxed">
-                Enter the job URL on the right to discover amazing referral opportunities from employees at your dream company.
+          <div className="relative w-full flex flex-col gap-4">
+            {/* Top Text */}
+            <div className="text-center mb-2">
+              <p className="text-white max-w-[600px] mx-auto italic font-clash text-2xl">
+                They&apos;ve walked your path <br />
+                and can vouch for your potential
               </p>
-              <div className="mt-8">
-                <Image
-                  src="/svg/starRating.svg"
-                  alt="star"
-                  width={40}
-                  height={40}
-                  className="mx-auto mb-4"
-                />
-                <p className="text-sm xs:text-base lg:text-lg text-gray-300">
-                  Get personalized referrals and increase your chances of landing the job by 9x
-                </p>
-              </div>
             </div>
-          ) : (
-            // After submission - showing cards
-            <div className="relative w-full flex flex-col gap-4">
-              {/* Top Text */}
-              <div className="text-center mb-2">
-                <p className="text-white max-w-[600px] mx-auto italic font-clash text-2xl">
-                  They&apos;ve walked your path <br />
-                  and can vouch for your potential
-                </p>
-              </div>
 
-              {/* Cards Section */}
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col xs:flex-col sm:flex-col lg:flex-row justify-center sm:justify-between gap-3 sm:gap-4">
-                  <div className="mx-auto sm:mx-auto lg:-ml-3">
-                    <ReferrerCard {...cardInfo[0]} hasPaid={hasPaid} />
-                  </div>
-                  <div className="mx-auto sm:mx-auto lg:-ml-10">
-                    <ReferrerCard {...cardInfo[1]} hasPaid={hasPaid} />
-                  </div>
+            {/* Cards Section */}
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col xs:flex-col sm:flex-col lg:flex-row justify-center sm:justify-between gap-3 sm:gap-4">
+                <div className="mx-auto sm:mx-auto lg:-ml-3">
+                  <ReferrerCard {...cardInfo[0]} hasPaid={hasPaid} />
                 </div>
-                
-                <div className="flex justify-center">
-                  <ReferrerCard {...cardInfo[2]} hasPaid={hasPaid} />
+                <div className="mx-auto sm:mx-auto lg:-ml-10">
+                  <ReferrerCard {...cardInfo[1]} hasPaid={hasPaid} />
                 </div>
               </div>
-
-              {/* Bottom Text */}
-              <div className="text-center mt-2">
-                <p className="text-white italic font-clash text-2xl">
-                  They let them know you are serious
-                </p>
+              
+              <div className="flex justify-center">
+                <ReferrerCard {...cardInfo[2]} hasPaid={hasPaid} />
               </div>
             </div>
-          )}
+
+            {/* Bottom Text */}
+            <div className="text-center mt-2">
+              <p className="text-white italic font-clash text-2xl">
+                They let them know you are serious
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
