@@ -5,7 +5,7 @@ import Image from "next/image";
 import SuccessPage from "./SuccessPage";
 import RefererIncome from "./RefererIncome";
 
-export default function RefererRightSide() {
+export default function RefererRightSide({ onShowLinkedInPost }) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showIncome, setShowIncome] = useState(false);
   const [companyDetails, setCompanyDetails] = useState("");
@@ -28,7 +28,7 @@ export default function RefererRightSide() {
   }
 
   if (showIncome) {
-    return <RefererIncome />;
+    return <RefererIncome onShowLinkedInPost={onShowLinkedInPost} />;
   }
 
   return (

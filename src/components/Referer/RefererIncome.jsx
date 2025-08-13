@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 import Login from "./Login";
 
-export default function RefererIncome() {
+export default function RefererIncome({ onShowLinkedInPost }) {
   const [showLogin, setShowLogin] = useState(false);
 
   if (showLogin) {
-    return <Login />;
+    return <Login onShowLinkedInPost={onShowLinkedInPost} />;
   }
 
   return (

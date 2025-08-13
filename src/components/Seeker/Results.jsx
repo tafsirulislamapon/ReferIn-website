@@ -13,47 +13,51 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
   useEffect(() => {
     // Enhanced confetti effect function
     const triggerConfetti = () => {
-      // Fire multiple bursts from different positions
-      const count = 100; // Increased particle count
+      const count = 70;
       const defaults = {
-        spread: 90,
+        spread: 150, 
         ticks: 70,
         gravity: 1.2,
         decay: 0.94,
-        startVelocity: 30,
+        startVelocity: 25, 
         colors: ['#ffffff', '#2E1FFF', '#0C549F', '#4ADE80']
       };
 
       function shoot() {
+        // Left side burst
         confetti({
           ...defaults,
           particleCount: count,
-          origin: { x: Math.random(), y: Math.random() - 0.2 }
+          origin: { x: 0.1, y: 0.1 } 
         });
 
+        // Center burst
         confetti({
           ...defaults,
           particleCount: count,
-          origin: { x: Math.random(), y: Math.random() - 0.2 }
+          origin: { x: 0.5, y: 0.5 } 
+        });
+
+        // Right side burst
+        confetti({
+          ...defaults,
+          particleCount: count,
+          origin: { x: 0.9, y: 0.1 } 
         });
       }
 
-      // Initial bursts
       shoot();
     };
 
     // Only show confetti if we have referrers
     if (referrerCount > 0) {
-      // Initial burst
       triggerConfetti();
 
-      // More frequent bursts every 700ms
-      const interval = setInterval(triggerConfetti, 700);
+      const interval = setInterval(triggerConfetti, 1200);
 
-      // Clean up after 3 seconds
       const timer = setTimeout(() => {
         clearInterval(interval);
-      }, 3000);
+      }, 2000);
 
       return () => {
         clearInterval(interval);

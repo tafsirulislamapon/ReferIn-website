@@ -163,7 +163,7 @@ export default function SeekerAiPov() {
               <Results 
                 onPayment={handlePayment} 
                 onGoToLinkedIn={handleGoToLinkedIn}
-                referrerCount={referrerCount} // Add this prop
+                referrerCount={referrerCount} 
               />
             )
           ) : (

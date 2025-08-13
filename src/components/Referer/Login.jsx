@@ -2,11 +2,11 @@ import Image from "next/image";
 import { useState } from "react";
 import ReferrerLanding from "./ReferrerLanding";
 
-export default function Login() {
+export default function Login({ onShowLinkedInPost }) {
   const [showLanding, setShowLanding] = useState(false);
 
   if (showLanding) {
-    return <ReferrerLanding />;
+    return <ReferrerLanding onShowLinkedInPost={onShowLinkedInPost} />;
   }
 
   return (

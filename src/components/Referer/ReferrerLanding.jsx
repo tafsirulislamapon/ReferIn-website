@@ -2,11 +2,11 @@ import Image from "next/image";
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UserAvatar from "../User/UserAvatar";
-import Thanks from './Thanks';
+import { Input } from "../ui/input";
 
-export default function ReferrerLanding() {
+export default function ReferrerLanding({ onShowLinkedInPost }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [showThanks, setShowThanks] = useState(false);
+  const [vacancyUrl, setVacancyUrl] = useState('');
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -23,9 +23,11 @@ export default function ReferrerLanding() {
     multiple: false
   });
 
-  if (showThanks) {
-    return <Thanks />;
-  }
+  const handleSubmitVacancy = () => {
+    if (selectedFile && onShowLinkedInPost) {
+      onShowLinkedInPost();
+    }
+  };
 
   return (
     <>
@@ -58,10 +60,14 @@ export default function ReferrerLanding() {
               Please paste the url of the job spec vacancies your company has, mode of work and Title of role.
             </h1>
 
-            {/* Example URL */}
-            <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 text-white/80 text-sm">
-              <p>eg: Apple.co.uk/great-job-designer, hybrid, Web designer</p>
-            </div>
+            {/* Vacancy Input */}
+            <Input
+              type="text"
+              placeholder="eg: Apple.co.uk/great-job-designer, hybrid, Web designer"
+              value={vacancyUrl}
+              onChange={(e) => setVacancyUrl(e.target.value)}
+              className="bg-white/10 text-white placeholder:text-white/80 h-14 !text-xl !md:text-xl px-5"
+            />
 
             {/* Upload Section */}
             <div className="space-y-3">
@@ -100,11 +106,11 @@ export default function ReferrerLanding() {
 
             {/* Submit Button */}
             <button 
-              className={`w-full bg-blue-600 text-white rounded-lg py-3 text-sm font-semibold transition-colors ${
+              className={`w-full bg-blue-600 text-white rounded-lg py-5 text-sm sm:text-xl cursor-pointer font-semibold transition-colors ${
                 selectedFile ? 'hover:bg-blue-700' : 'opacity-50 cursor-not-allowed'
               }`}
               disabled={!selectedFile}
-              onClick={() => setShowThanks(true)}
+              onClick={handleSubmitVacancy}
             >
               Submit Vacancy
             </button>

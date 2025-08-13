@@ -1,15 +1,8 @@
 import { useState } from 'react';
-import ReferrerLanding from './ReferrerLanding';
 
 export default function Thanks() {
-  const [showLanding, setShowLanding] = useState(false);
-
-  if (showLanding) {
-    return <ReferrerLanding />;
-  }
-
   return (
-    <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 pt-24">
+    <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-[600px] space-y-8">
         {/* Success Message */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center">
@@ -30,7 +23,7 @@ export default function Thanks() {
 
         {/* Add More Section */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center cursor-pointer hover:bg-white/20 transition-colors"
-          onClick={() => setShowLanding(true)}
+          onClick={() => window.location.reload()}
         >
           <h2 className="text-2xl font-clash font-bold text-white mb-2">
             Any more vacancies to add?

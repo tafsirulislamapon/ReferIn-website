@@ -2,39 +2,28 @@
 
 import Image from 'next/image';
 import Message from './Message';
-import HelpUs from './HelpUs';
-import ThankYou from '../ThankYou';
+import ThanksForSubmit from './ThanksForSubmit';
 
-export default function LinkedInPost({ onPostComplete, hasReferrers = true }) {
+export default function LinkedInPost({ onPostComplete }: { onPostComplete: () => void }) {
   const handlePostToLinkedIn = () => {
-    const predefinedMessage = `Check out ReferIn.io to instantly match you to referral-ready employees at companies your interested in, with relevant vacancies.
+    const predefinedMessage = `Just joined ReferIn.io — a platform that connects job seekers directly with employees who can refer them.
 
-Just thought I'd share to help any jobseekers out there..
+I'm happy to support talented professionals by pointing them in the right direction when possible.
 
-#JobReferrals #JobSeekers #ReferIn`;
+If you're exploring new opportunities, feel free to check it out.
+
+#ReferIn #CareerGrowth #JobReferrals #Networking`;
 
     const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://referin.io&text=${encodeURIComponent(predefinedMessage)}`;
     window.open(linkedInShareUrl, '_blank');
     
     if (onPostComplete) {
-      onPostComplete(hasReferrers);
+      onPostComplete();
     }
-  };
-
-  const handleGoBack = () => {
-    onPostComplete(); // Use this instead of window.history.back()
   };
 
   return (
     <div className="w-full bg-white rounded-xl p-6 sm:p-8">
-      {/* Back Button */}
-      <button 
-        onClick={handleGoBack}
-        className="flex items-center gap-2 text-gray-700 mb-6 hover:text-gray-900 transition-colors"
-      >
-        ← Back
-      </button>
-
       {/* Main Content */}
       <div className="bg-white rounded-lg">
         {/* LinkedIn Header */}
@@ -49,7 +38,7 @@ Just thought I'd share to help any jobseekers out there..
         </div>
 
         {/* Help Text Component */}
-        <HelpUs />
+        <ThanksForSubmit />
 
         {/* LinkedIn Post Editor */}
         <div className="mt-6 border rounded-lg p-4">
