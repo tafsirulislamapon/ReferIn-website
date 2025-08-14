@@ -35,12 +35,10 @@ export default function SeekerAiPov() {
     }
   };
 
+  // Modified handlePayment function
   const handlePayment = () => {
     setHasPaid(true);
-    if (referrerCount === 0) {
-      setShowNoReferrer(true);
-    }
-    setShowResults(false);
+    setShowResults(true);
     setShowCards(true);
   };
 
@@ -143,7 +141,7 @@ export default function SeekerAiPov() {
     />;
   }
 
-  // Only render the main layout if NOT showing LinkedIn
+  // Main layout return
   return (
     <>
       <nav className="w-full fixed top-0 right-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-sm">
@@ -164,18 +162,16 @@ export default function SeekerAiPov() {
       <main className="flex min-h-screen justify-center items-center w-full pt-16">
         <div className="flex flex-col-reverse lg:flex-row w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
           {<LeftSide showCards={showCards} hasPaid={hasPaid} />}
-          {showResults ? (
-            hasPaid ? (
-              <PaidSeeker onSubmit={handlePaidSubmit} />
-            ) : (
-              <Results 
-                onPayment={handlePayment} 
-                onGoToLinkedIn={handleGoToLinkedIn}
-                referrerCount={referrerCount} 
-              />
-            )
-          ) : (
+          {!showResults ? (
             <RightSide onSubmit={handleSubmit} />
+          ) : hasPaid ? (
+            <PaidSeeker onSubmit={handlePaidSubmit} />
+          ) : (
+            <Results 
+              onPayment={handlePayment} 
+              onGoToLinkedIn={handleGoToLinkedIn}
+              referrerCount={referrerCount} 
+            />
           )}
         </div>
       </main>
