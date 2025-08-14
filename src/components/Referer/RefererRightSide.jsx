@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import SuccessPage from "./SuccessPage";
-import RefererIncome from "./RefererIncome";
+import Login from "./Login"; // Import Login instead of RefererIncome
 
 export default function RefererRightSide({ onShowLinkedInPost }) {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [showIncome, setShowIncome] = useState(false);
+  const [showLogin, setShowLogin] = useState(false); // Change to showLogin instead of showIncome
   const [companyDetails, setCompanyDetails] = useState("");
 
   const handleCalculate = () => {
@@ -16,10 +16,10 @@ export default function RefererRightSide({ onShowLinkedInPost }) {
     // Show success page
     setShowSuccess(true);
 
-    // After 3 seconds, hide success and show income
+    // After 3 seconds, hide success and show login
     setTimeout(() => {
       setShowSuccess(false);
-      setShowIncome(true);
+      setShowLogin(true); // Show login instead of income
     }, 3000);
   };
 
@@ -27,8 +27,8 @@ export default function RefererRightSide({ onShowLinkedInPost }) {
     return <SuccessPage />;
   }
 
-  if (showIncome) {
-    return <RefererIncome onShowLinkedInPost={onShowLinkedInPost} />;
+  if (showLogin) { // Change condition to showLogin
+    return <Login onShowLinkedInPost={onShowLinkedInPost} />;
   }
 
   return (
