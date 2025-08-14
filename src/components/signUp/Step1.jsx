@@ -15,8 +15,8 @@ export default function Step1() {
   const router = useRouter();
   const [selected, setSelected] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  // Commenting out network name state as it's not needed for now
-  // const [showNetworkName, setShowNetworkName] = useState(false);
+  // Uncomment and use the network name state
+  const [showNetworkName, setShowNetworkName] = useState(false);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showDropCv, setShowDropCv] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -25,13 +25,13 @@ export default function Step1() {
     image: "/fallbackUserImg.png"
   });
 
-  // Keep this handler for future use
-  /* const handleImageChange = (imageUrl) => {
+  // Uncomment and use the image handler
+  const handleImageChange = (imageUrl) => {
     setUserData(prev => ({
       ...prev,
       image: imageUrl
     }));
-  }; */
+  };
 
   // Update this when user data is available from CreateAccount
   const handleCreateAccountData = (data) => {
@@ -54,9 +54,14 @@ export default function Step1() {
       } else {
         setShowConfetti(true);
       }
-    // Remove the network name condition and go directly to create account
-    } else if (selected && agreeToTerms) {
+    } else if (showNetworkName) {
       setShowCreateAccount(true);
+    } else if (selected && agreeToTerms) {
+      if (selected === "I want to refer others to my company and earn") {
+        setShowNetworkName(true);
+      } else {
+        setShowCreateAccount(true);
+      }
     }
   };
 
@@ -64,17 +69,19 @@ export default function Step1() {
     setShowConfetti(true);
   };
 
-  // Update step calculation to skip network name
+  // Update step calculation to include network name
   const getCurrentStep = () => {
-    if (showDropCv) return 3; // Updated step numbers
-    if (showCreateAccount) return 2;
+    if (showDropCv) return 4;
+    if (showCreateAccount) return 3;
+    if (showNetworkName) return 2;
     return 1;
   };
 
-  // Update button enable logic to skip network name
+  // Update button enable logic to include network name
   const isNextButtonEnabled = () => {
     if (showDropCv) return true;
     if (showCreateAccount) return true;
+    if (showNetworkName) return true;
     return selected && agreeToTerms;
   };
 
@@ -93,8 +100,8 @@ export default function Step1() {
               className="w-16 md:w-20 h-auto"
             />
           </div>
-          {/* Update total steps to 3 since we're skipping network name */}
-          <ProgressDots currentStep={getCurrentStep()} totalSteps={3} />
+          {/* Update total steps to 4 to include network name */}
+          <ProgressDots currentStep={getCurrentStep()} totalSteps={4} />
           <div className="w-24 md:w-28" />
         </div>
 
@@ -107,9 +114,8 @@ export default function Step1() {
             />
           ) : showCreateAccount ? (
             <CreateAccount onComplete={handleCreateAccountData} />
-          // Comment out the network name condition
-          /* ) : showNetworkName ? (
-            <NetworkName onImageChange={handleImageChange} */
+          ) : showNetworkName ? (
+            <NetworkName onImageChange={handleImageChange} />
           ) : (
             <>
               <h2 className="text-lg md:text-xl font-satoshi mb-1">

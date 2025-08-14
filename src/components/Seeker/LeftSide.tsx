@@ -82,7 +82,7 @@ export default function LeftSide({ hasPaid = false }) {
             {/* Bottom Text */}
             <div className="text-center mt-2">
               <p className="text-white italic font-clash text-2xl">
-                They let them know you are serious
+                You&apos;ve seen some great vacancies.Now it&apos;s time to get referred and out-smart the other candidates.
               </p>
             </div>
           </div>
