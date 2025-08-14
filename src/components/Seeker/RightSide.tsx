@@ -4,8 +4,6 @@ import { useState } from "react";
 import NoReferrer from "./NoReferrer";
 import LinkedInPost from "./LinkedInPost/LinkedInPost";
 import ThankYou from "./ThankYou";
-import Image from "next/image";
-import { Input } from "@/components/ui/input";
 
 export default function RightSide({ 
   onSubmit 
@@ -110,7 +108,7 @@ export default function RightSide({
                 value={jobSearch}
                 onChange={(e) => setJobSearch(e.target.value)}
                 rows={2}
-                className="w-full px-3 py-4 rounded-xl bg-white text-sm lg:text-lg text-[#08218E] placeholder:text-[#08218E] border-none focus-visible:ring-white/20 resize-none text-center placeholder:text-center"
+                className="w-full px-3 py-4 rounded-xl bg-white text-sm lg:text-lg text-[#08218E] placeholder:text-[#08218E]/60 border-none focus-visible:ring-white/20 resize-none text-center placeholder:text-center"
               />
             </div>
             <p className="text-base xs:text-lg -mt-2 lg:text-2xl mb-6 lg:mb-4 mx-3">
@@ -131,7 +129,7 @@ export default function RightSide({
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 rows={2}
-                className="w-full px-3 py-4 rounded-xl bg-white text-sm lg:text-lg text-[#08218E] placeholder:text-[#08218E] border-none focus-visible:ring-white/20 resize-none text-center placeholder:text-center"
+                className="w-full px-3 py-4 rounded-xl bg-white text-sm lg:text-lg text-[#08218E] placeholder:text-[#08218E]/60 border-none focus-visible:ring-white/20 resize-none text-center placeholder:text-center"
               />
             </div>
           </div>
