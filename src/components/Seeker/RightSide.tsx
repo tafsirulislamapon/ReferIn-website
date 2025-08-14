@@ -15,7 +15,7 @@ export default function RightSide({
   const [jobSearch, setJobSearch] = useState("");
   const [location, setLocation] = useState("");
   const [showResult, setShowResult] = useState(false);
-  const [referrerCount, setReferrerCount] = useState(3);
+  const [referrerCount, setReferrerCount] = useState(1);
   const [showLinkedIn, setShowLinkedIn] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 

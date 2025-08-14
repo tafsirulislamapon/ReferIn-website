@@ -24,7 +24,15 @@ export default function SeekerAiPov() {
     setJobUrl(url);
     setReferrerCount(count || 0);
     setShowCards(true);
-    setShowResults(true);
+    
+    // If no referrers found, directly show LinkedIn post
+    if (count === 0) {
+      setShowLinkedIn(true);
+      setShowResults(false);
+    } else {
+      // If referrers found, show results
+      setShowResults(true);
+    }
   };
 
   const handlePayment = () => {
@@ -66,7 +74,7 @@ export default function SeekerAiPov() {
     setShowCards(true);  // Add this to show the cards in LeftSide
   };
 
-  const handlePostComplete = (hasReferrers = true) => {
+  const handlePostComplete = (hasReferrers = false) => {
     setShowLinkedIn(false);
     setShowThankYou(true);
     // Only set these if there are referrers
