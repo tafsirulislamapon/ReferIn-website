@@ -55,13 +55,15 @@ export default function LeftSide({ hasPaid = false }) {
 
         <div className="relative min-h-[400px] xs:min-h-[450px] flex flex-col justify-center items-center">
           <div className="relative w-full flex flex-col gap-4">
-            {/* Top Text */}
-            <div className="text-center mb-2">
-              <p className="text-white max-w-[600px] mx-auto italic font-clash text-2xl">
-                They&apos;ve walked your path <br />
-                and can vouch for your potential
-              </p>
-            </div>
+            {/* Top Text - Only show for paid users */}
+            {hasPaid && (
+              <div className="text-center mb-2">
+                <p className="text-white max-w-[600px] mx-auto italic font-clash text-2xl">
+                  They&apos;ve walked your path <br />
+                  and can vouch for your potential
+                </p>
+              </div>
+            )}
 
             {/* Cards Section */}
             <div className="flex flex-col gap-4">
@@ -79,12 +81,14 @@ export default function LeftSide({ hasPaid = false }) {
               </div>
             </div>
 
-            {/* Bottom Text */}
-            <div className="text-center mt-2">
-              <p className="text-white italic font-clash text-2xl">
-                You&apos;ve seen some great vacancies.Now it&apos;s time to get referred and out-smart the other candidates.
-              </p>
-            </div>
+            {/* Bottom Text - Only show for paid users */}
+            {hasPaid && (
+              <div className="text-center mt-2">
+                <p className="text-white italic font-clash text-2xl">
+                  You&apos;ve seen some great vacancies. Now it&apos;s time to get referred and out-smart the other candidates.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

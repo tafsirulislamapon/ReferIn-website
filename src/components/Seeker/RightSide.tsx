@@ -13,7 +13,7 @@ export default function RightSide({
   const [jobSearch, setJobSearch] = useState("");
   const [location, setLocation] = useState("");
   const [showResult, setShowResult] = useState(false);
-  const [referrerCount, setReferrerCount] = useState(2);
+  const referrerCount = 2;
   const [showLinkedIn, setShowLinkedIn] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
@@ -136,7 +136,7 @@ export default function RightSide({
 
           <button 
             type="submit"
-            className="w-[200px] mx-auto bg-[#08218E] hover:bg-[#0037FF]/80 cursor-pointer text-white py-2.5 lg:py-3 rounded-xl text-sm lg:text-base font-semibold transition-colors"
+            className="w-1/2 mx-auto mt-5 bg-[#08218E] hover:bg-[#0037FF]/80 cursor-pointer text-white py-2.5 lg:py-3 rounded-xl text-sm lg:text-lg font-semibold transition-colors"
           >
             Find Referrers Now
           </button>

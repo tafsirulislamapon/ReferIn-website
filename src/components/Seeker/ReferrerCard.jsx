@@ -82,7 +82,7 @@ export default function ReferrerCard({
           onClick={handleLinkedInClick}
           target="_blank" 
           rel="noopener noreferrer" 
-          className="block w-full mt-2 sm:mt-3 bg-white text-[#0066CC] cursor-pointer rounded-md py-1 sm:py-1.5 md:py-2 px-2 sm:px-3 text-[11px] sm:text-xs md:text-sm font-semibold active:bg-gray-100 transition-colors flex items-center justify-center gap-1.5 shadow-sm hover:bg-white/80"
+          className="w-full mt-2 sm:mt-3 bg-white text-[#0066CC] cursor-pointer rounded-md py-1 sm:py-1.5 md:py-2 px-2 sm:px-3 text-[11px] sm:text-xs md:text-sm font-semibold active:bg-gray-100 transition-colors flex items-center justify-center gap-1.5 shadow-sm hover:bg-white/80"
         >
           <Image
             src="/icons/linkedIn.png"

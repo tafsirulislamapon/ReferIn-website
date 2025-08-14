@@ -192,7 +192,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
               {/* Free Option Button */}
               <button
                 onClick={handleFreeClick}
-                className="w-full border border-white/20 hover:bg-[#10B981]/90 rounded-xl p-4 transition-colors group"
+                className="w-full border border-white/20 hover:bg-[#10B981]/80 rounded-xl p-4 transition-colors group"
               >
                 <div className="flex justify-between items-center">
                   <div className="text-left">

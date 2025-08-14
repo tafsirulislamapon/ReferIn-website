@@ -8,7 +8,7 @@ Each interview — even if it doesn't lead to a job — can help you grow your p
 
 Plus, exploring various opportunities helps you figure out what kind of role is truly the best fit for you.`;
 
-export default function PaidSeeker({ onSubmit }: { onSubmit: (url: string) => void }) {
+export default function PaidSeeker() {
   const [userInput, setUserInput] = useState("");
   const [currentAiResponse, setCurrentAiResponse] = useState(initialResponse);
   const [isTyping, setIsTyping] = useState(true);
@@ -90,7 +90,7 @@ export default function PaidSeeker({ onSubmit }: { onSubmit: (url: string) => vo
           <div className="relative">
             <Input
               type="text"
-              placeholder="Type your message here..."
+              placeholder="Enter url of job spec here"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               className="text-white placeholder:text-white/70 border-white/20 bg-[#0A1A3B]/30 focus-visible:ring-[#1E3A8A]/50 h-16 text-xl md:text-2xl px-6"
@@ -101,7 +101,7 @@ export default function PaidSeeker({ onSubmit }: { onSubmit: (url: string) => vo
             type="submit"
             className="w-full bg-[#001B5D] hover:bg-[#001B5D]/80 text-white py-5 rounded-xl font-semibold transition-colors text-xl"
           >
-            Send Message
+            Find Referrers for this Role
           </button>
         </form>
       </div>
