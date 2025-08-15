@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Message from './Message';
 import HelpUs from './HelpUs';
-import ThankYou from '../ThankYou';
 
 export default function LinkedInPost({ onPostComplete, hasReferrers = true }) {
   const handlePostToLinkedIn = () => {

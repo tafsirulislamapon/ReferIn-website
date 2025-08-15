@@ -87,7 +87,7 @@ export default function PaidSeeker() {
 
         {/* Input Section - Increased text size */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative">
+          {/* <div className="relative">
             <Input
               type="text"
               placeholder="Enter url of job spec here"
@@ -95,14 +95,15 @@ export default function PaidSeeker() {
               onChange={(e) => setUserInput(e.target.value)}
               className="text-white placeholder:text-white/70 border-white/20 bg-[#0A1A3B]/30 focus-visible:ring-[#1E3A8A]/50 h-16 text-xl md:text-2xl px-6"
             />
-          </div>
+          </div> */}
 
           <button
             type="submit"
             className="w-full bg-[#001B5D] hover:bg-[#001B5D]/80 text-white py-5 rounded-xl font-semibold transition-colors text-xl"
           >
-            Find Referrers for this Role
+            Find more refer ready employees
           </button>
+          
         </form>
       </div>
     </div>
