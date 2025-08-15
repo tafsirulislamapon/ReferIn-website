@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import Image from "next/image";
 
 export default function PaidSeeker() {
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
   const [userInput, setUserInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userInput.trim()) {
-      // Handle form submission if needed
       setUserInput("");
     }
   };
@@ -20,8 +21,39 @@ export default function PaidSeeker() {
             Keep going!
           </h1>
 
-          {/* Formless.ai Iframe */}
-          <div className="bg-[#1E3A8A]/80 rounded-2xl p-4 shadow-lg">
+          {/* Formless.ai Iframe with Loading State */}
+          <div className="bg-[#1E3A8A]/80 rounded-2xl p-4 shadow-lg relative">
+            {isIframeLoading && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#08498E]/20 backdrop-blur-sm rounded-xl z-10">
+                {/* Rectangular loading animation */}
+                <div className="relative w-[280px] h-[160px] flex items-center justify-center">
+                  {/* Outer pulsing border */}
+                  <div className="absolute inset-0 rounded-2xl border-2 border-white/20 animate-pulse-ring"></div>
+                  {/* Inner pulsing background */}
+                  <div className="absolute inset-0 bg-white/5 rounded-2xl animate-pulse"></div>
+                  {/* Content container */}
+                  <div className="relative z-10 flex flex-col items-center">
+                    <Image
+                      src="/referin-whiteTextLOGO.svg"
+                      alt="Referin Logo"
+                      width={120}
+                      height={30}
+                      className="mb-4 animate-pulse"
+                      priority
+                    />
+                    {/* Loading dots */}
+                    <div className="flex gap-1.5 mt-2">
+                      <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
+                    <p className="text-white/80 mt-4 font-satoshi text-sm">
+                      Loading form...
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
             <iframe
               src="https://formless.ai/c/0s5ORyyg0jQv"
               width="100%"
@@ -29,6 +61,8 @@ export default function PaidSeeker() {
               frameBorder="0"
               className="rounded-xl"
               title="Formless AI Form"
+              onLoad={() => setIsIframeLoading(false)}
+              style={{ opacity: isIframeLoading ? 0 : 1, transition: 'opacity 0.3s ease-in-out' }}
             />
           </div>
         </div>
