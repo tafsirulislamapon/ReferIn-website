@@ -40,8 +40,8 @@ export default function Thanks() {
         <button 
           className="w-full bg-[#0A2472] text-white rounded-lg py-4 font-semibold hover:bg-[#0A2472]/90 transition-colors"
           onClick={() => {
-            // Handle finish action here
-            console.log("Finished");
+            // This should take user back to initial state (iframe page)
+            window.location.reload();
           }}
         >
           I've finished, thank you

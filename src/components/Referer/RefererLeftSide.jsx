@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import SeekerCard from "./SeekerCard";
+import { useState } from "react";
 
 const cardInfo = [
   {
@@ -34,45 +36,86 @@ const cardInfo = [
   }
 ];
 
-export default function RefererLeftSide() {
+export default function RefererLeftSide({ showCards = false }) {
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
+
   return (
     <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-6 lg:p-8">
       <div className="relative bg-white/5 backdrop-blur-[2px] rounded-3xl p-4 sm:p-6 lg:p-8 w-full">
-        {/* Logo */}
-        <div className="mb-8 lg:mb-16">
-          <Image
-            src="/referin-whiteTextLOGO.svg"
-            alt="Referin Logo"
-            width={80}
-            height={20}
-            className="w-12 lg:w-16 h-auto"
-            priority
-          />
-        </div>
-
-        <div className="flex flex-col items-center">
-          {/* Top row with two cards */}
-          <div className="flex flex-col sm:flex-row justify-center w-full max-w-[900px] mx-auto">
-            <div className="mb-4 sm:mb-0">
-              <SeekerCard {...cardInfo[0]} />
+        {showCards ? (
+          /* Cards Content */
+          <div className="flex flex-col items-center">
+            {/* Top row with two cards */}
+            <div className="flex flex-col sm:flex-row justify-center w-full max-w-[900px] mx-auto">
+              <div className="mb-4 sm:mb-0">
+                <SeekerCard {...cardInfo[0]} />
+              </div>
+              <div className="sm:-ml-6 md:-ml-10 lg:-ml-16">
+                <SeekerCard {...cardInfo[1]} />
+              </div>
             </div>
-            <div className="sm:-ml-6 md:-ml-10 lg:-ml-16">
-              <SeekerCard {...cardInfo[1]} />
+            
+            {/* Bottom row with single card */}
+            <div className="mt-4 sm:-mt-1">
+              <SeekerCard {...cardInfo[2]} />
+            </div>
+            
+            {/* Text below cards */}
+            <div className="text-white text-base lg:text-lg font-satoshi font-light text-center max-w-[90%] mx-auto mt-8">
+              <p className="leading-relaxed">
+                {"You know your company and what makes someone a great fit - why not get rewarded for it?"}
+              </p>
             </div>
           </div>
-          
-          {/* Bottom row with single card */}
-          <div className="mt-4 sm:-mt-1">
-            <SeekerCard {...cardInfo[2]} />
+        ) : (
+          /* Formless AI Iframe with Loading State */
+          <div className="flex flex-col items-center">
+            <div className="w-full max-w-[600px] mx-auto relative">
+              {isIframeLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#08498E]/20 backdrop-blur-sm rounded-2xl z-10">
+                  {/* Rectangular loading animation */}
+                  <div className="relative w-[280px] h-[160px] flex items-center justify-center">
+                    {/* Outer pulsing border */}
+                    <div className="absolute inset-0 rounded-2xl border-2 border-white/20 animate-pulse-ring"></div>
+                    {/* Inner pulsing background */}
+                    <div className="absolute inset-0 bg-white/5 rounded-2xl animate-pulse"></div>
+                    {/* Content container */}
+                    <div className="relative z-10 flex flex-col items-center">
+                      <Image
+                        src="/referin-whiteTextLOGO.svg"
+                        alt="Referin Logo"
+                        width={120}
+                        height={30}
+                        className="mb-4 animate-pulse"
+                        priority
+                      />
+                      {/* Loading dots */}
+                      <div className="flex gap-1.5 mt-2">
+                        <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-white/80 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      </div>
+                      <p className="text-white/80 mt-4 font-satoshi text-sm">
+                        Loading calculator...
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <iframe
+                src="https://formless.ai/c/K2MQwIXkqnLi"
+                width="100%"
+                height="500"
+                frameBorder="0"
+                className="rounded-2xl bg-white/10 backdrop-blur-sm"
+                title="Formless AI Calculator"
+                allowFullScreen
+                onLoad={() => setIsIframeLoading(false)}
+                style={{ opacity: isIframeLoading ? 0 : 1, transition: 'opacity 0.3s ease-in-out' }}
+              />
+            </div>
           </div>
-          
-          {/* Text below cards */}
-          <div className="text-white text-base lg:text-lg font-satoshi font-light text-center max-w-[90%] mx-auto mt-8">
-            <p className="leading-relaxed">
-              {"You know your company and what makes someone a great fit - why not get rewarded for it?"}
-            </p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

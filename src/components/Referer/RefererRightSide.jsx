@@ -54,7 +54,7 @@ export default function RefererRightSide({ onShowLinkedInPost }) {
             onClick={handleCalculate}
             className="w-full bg-blue-600 text-white rounded-lg py-4 font-semibold hover:bg-blue-700 transition-colors"
           >
-            Continue
+            Calculate your Potential Earnings
           </button>
         </div>
       </div>

@@ -9,8 +9,10 @@ import Thanks from "./Thanks";
 export default function ReferrerAiPov() {
   const [showLinkedInPost, setShowLinkedInPost] = useState(false);
   const [showThanks, setShowThanks] = useState(false);
+  const [hasStartedProcess, setHasStartedProcess] = useState(false); // Track if user pressed Continue
 
   const handleShowLinkedInPost = () => {
+    setHasStartedProcess(true); // User has started the process
     setShowLinkedInPost(true);
   };
 
@@ -46,7 +48,7 @@ export default function ReferrerAiPov() {
   return (
     <div className="min-h-screen bg-[#08498E] flex flex-col lg:flex-row items-center justify-center gap-0">
       <div className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-center">
-        <RefererLeftSide />
+        <RefererLeftSide showCards={hasStartedProcess} />
         {showThanks ? (
           <Thanks />
         ) : (
