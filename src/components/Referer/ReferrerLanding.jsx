@@ -3,10 +3,13 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UserAvatar from "../User/UserAvatar";
 import { Input } from "../ui/input";
+import Thanks from './Thanks';
 
-export default function ReferrerLanding({ onShowLinkedInPost }) {
+export default function ReferrerLanding({ onShowLinkedInPost, onSkip }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [vacancyUrl, setVacancyUrl] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showThanks, setShowThanks] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -24,10 +27,28 @@ export default function ReferrerLanding({ onShowLinkedInPost }) {
   });
 
   const handleSubmitVacancy = () => {
-    if (selectedFile && onShowLinkedInPost) {
-      onShowLinkedInPost();
+    if (vacancyUrl.trim() && !isSubmitting) {
+      setIsSubmitting(true);
+      // Simulate a small delay to show loading state
+      setTimeout(() => {
+        setShowThanks(true);
+        setIsSubmitting(false);
+        if (onShowLinkedInPost) {
+          onShowLinkedInPost();
+        }
+      }, 500);
     }
   };
+
+  const handleSkip = () => {
+    if (onSkip) {
+      onSkip();
+    }
+  };
+
+  if (showThanks) {
+    return <Thanks />;
+  }
 
   return (
     <>
@@ -67,13 +88,14 @@ export default function ReferrerLanding({ onShowLinkedInPost }) {
               value={vacancyUrl}
               onChange={(e) => setVacancyUrl(e.target.value)}
               className="bg-white/10 text-white placeholder:text-white/80 h-14 !text-xl !md:text-xl px-5"
+              required
             />
 
             {/* Upload Section */}
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-[#4ADE80]" />
-                <span className="text-white text-sm font-medium">Upload Job Description</span>
+                <span className="text-white text-sm font-medium">Upload Job Description (Optional)</span>
               </div>
 
               {/* Dropzone */}
@@ -104,16 +126,39 @@ export default function ReferrerLanding({ onShowLinkedInPost }) {
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button 
-              className={`w-full bg-blue-600 text-white rounded-lg py-5 text-sm sm:text-xl cursor-pointer font-semibold transition-colors ${
-                selectedFile ? 'hover:bg-blue-700' : 'opacity-50 cursor-not-allowed'
-              }`}
-              disabled={!selectedFile}
-              onClick={handleSubmitVacancy}
-            >
-              Submit Vacancy
-            </button>
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              {/* Submit Button */}
+              <button 
+                className={`w-full bg-blue-600 text-white rounded-lg py-5 text-sm sm:text-xl cursor-pointer font-semibold transition-colors flex items-center justify-center gap-2 ${
+                  !vacancyUrl.trim() || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'
+                }`}
+                disabled={!vacancyUrl.trim() || isSubmitting}
+                onClick={handleSubmitVacancy}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  'Continue'
+                )}
+              </button>
+
+              {/* Skip Button */}
+              <button 
+                onClick={handleSkip}
+                className="w-full bg-transparent border-2 border-white/30 text-white rounded-lg py-5 text-sm sm:text-xl font-semibold hover:bg-white/10 transition-colors"
+              >
+                Skip for Now
+              </button>
+            </div>
+
+            {/* Help Text */}
+            <div className="text-center text-sm text-white/60">
+              <p>You can always add job vacancies later from your dashboard</p>
+            </div>
           </div>
         </div>
       </div>

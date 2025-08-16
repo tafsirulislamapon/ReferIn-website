@@ -51,9 +51,23 @@ export default function Login({ onShowLinkedInPost }) {
             </div>
 
             {/* Bottom Text */}
-            <p className="text-gray-500 text-sm text-center">
-              Don't have LinkedIn yet?
-            </p>
+            <div className="text-center space-y-2">
+              <button 
+                onClick={() => setShowLanding(true)}
+                className="text-gray-500 text-sm hover:text-gray-700 transition-colors"
+              >
+                Don't have LinkedIn yet?
+              </button>
+              
+              <a 
+                href="https://www.linkedin.com/signup" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block text-[#0066CC] text-sm font-medium hover:underline"
+              >
+                Get it now
+              </a>
+            </div>
           </div>
         </div>
       </div>

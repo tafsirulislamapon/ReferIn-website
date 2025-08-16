@@ -8,8 +8,9 @@ import { useRouter } from 'next/navigation';
 export default function Confetti({ 
   userName = "John Adam", 
   userImage = "/fallbackUserImg.png",
-  temporary = false, // Add temporary prop
-  message // Add custom message prop
+  temporary = false,
+  message,
+  redirectTo = '/referin-ai'
 }) {
   const router = useRouter();
 
@@ -34,7 +35,7 @@ export default function Confetti({
     let timer;
     if (!temporary) {
       timer = setTimeout(() => {
-        router.push('/referin-ai');
+        router.push(redirectTo);
       }, 5000);
     }
 
@@ -42,7 +43,7 @@ export default function Confetti({
       clearInterval(interval);
       if (timer) clearTimeout(timer);
     };
-  }, [router, temporary]);
+  }, [router, temporary, redirectTo]);
 
   return (
     <div 

@@ -133,32 +133,30 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
               <BlueTick checked={Boolean(cvFile)} />
               <div className="flex-1">
                 <h3 className="text-white text-xl font-semibold mb-1">
-                  Upload your CV for match insights
+                  Upload your CV / Resume for match insights
                 </h3>
                 <p className="text-white/80 text-sm mb-4">(Optional)</p>
                 <div
                   {...getRootProps()}
-                  className="flex flex-col items-center justify-center"
+                  className="border-2 border-dashed border-white/30 rounded-lg p-4 text-center cursor-pointer hover:border-white/50 transition-colors max-w-[400px]"
                 >
                   <input {...getInputProps()} />
-                  <div className="mb-2 [&>img]:brightness-0 [&>img]:invert">
-                    <Image
-                      src="/svg/dropCv.svg"
-                      alt="Upload"
-                      width={40}
-                      height={40}
-                      className="opacity-70"
-                    />
-                  </div>
-                  <span className="text-white text-center">
-                    {cvFile ? cvFile.name : 'Upload your CV here'}
+                  <Image
+                    src="/svg/dropCv.svg"
+                    alt="Upload"
+                    width={32}
+                    height={32}
+                    className="mx-auto mb-2 invert"
+                  />
+                  <span className="text-white text-sm text-center">
+                    {cvFile ? cvFile.name : 'Upload your CV / Resume here'}
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Feedback Section */}
-            <div className="flex items-start gap-3">
+            {/* <div className="flex items-start gap-3">
               <BlueTick />
               <div>
                 <h3 className="text-white text-xl font-semibold mb-1">
@@ -168,7 +166,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
                   Check suitability, maximise your chances - before you apply
                 </p>
               </div>
-            </div>
+            </div> */}
 
             {/* Payment Buttons */}
             <div className="space-y-4 mt-8">

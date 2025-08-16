@@ -40,13 +40,14 @@ export default function RefererLeftSide({ showCards = false }) {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
 
   return (
-    <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-6 lg:p-8">
-      <div className="relative bg-white/5 backdrop-blur-[2px] rounded-3xl p-4 sm:p-6 lg:p-8 w-full">
+    // Center the content properly - changed from justify-end to justify-center
+    <div className="w-full lg:w-[50%] flex justify-center items-center">
+      <div className="relative bg-white/5 backdrop-blur-[2px] rounded-3xl p-3 sm:p-4 w-full max-w-[600px] overflow-visible">
         {showCards ? (
           /* Cards Content */
           <div className="flex flex-col items-center">
             {/* Top row with two cards */}
-            <div className="flex flex-col sm:flex-row justify-center w-full max-w-[900px] mx-auto">
+            <div className="flex flex-col sm:flex-row justify-center w-full max-w-[700px] mx-auto overflow-visible">
               <div className="mb-4 sm:mb-0">
                 <SeekerCard {...cardInfo[0]} />
               </div>
@@ -70,11 +71,12 @@ export default function RefererLeftSide({ showCards = false }) {
         ) : (
           /* Formless AI Iframe with Loading State */
           <div className="flex flex-col items-center">
-            <div className="w-full max-w-[600px] mx-auto relative">
+            {/* Increased max width and height of iframe container */}
+            <div className="w-full max-w-[580px] mx-auto relative">
               {isIframeLoading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#08498E]/20 backdrop-blur-sm rounded-2xl z-10">
-                  {/* Rectangular loading animation */}
-                  <div className="relative w-[280px] h-[160px] flex items-center justify-center">
+                  {/* Rectangular loading animation - increased size */}
+                  <div className="relative w-[320px] h-[180px] flex items-center justify-center">
                     {/* Outer pulsing border */}
                     <div className="absolute inset-0 rounded-2xl border-2 border-white/20 animate-pulse-ring"></div>
                     {/* Inner pulsing background */}
@@ -105,7 +107,7 @@ export default function RefererLeftSide({ showCards = false }) {
               <iframe
                 src="https://formless.ai/c/K2MQwIXkqnLi"
                 width="100%"
-                height="500"
+                height="600"
                 frameBorder="0"
                 className="rounded-2xl bg-white/10 backdrop-blur-sm"
                 title="Formless AI Calculator"
