@@ -52,7 +52,8 @@ export default function PaidSeeker() {
     } catch (error) {
       console.error('Payment error:', error);
       setIsProcessingPayment(false);
-      alert(`Payment failed: ${error.message}. Please try again.`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Payment failed: ${errorMessage}. Please try again.`);
     }
   };
 

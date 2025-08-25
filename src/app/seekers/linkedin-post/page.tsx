@@ -10,7 +10,7 @@ export default function LinkedInPostPage() {
   // Get hasReferrers from URL params
   const hasReferrers = searchParams.get('hasReferrers') === 'true';
 
-  const handlePostComplete = (hasReferrers) => {
+  const handlePostComplete = (hasReferrers: boolean) => {
     // Navigate to thanks page
     router.push(`/seekers/linkedin-post/thanks?hasReferrers=${hasReferrers}`);
   };

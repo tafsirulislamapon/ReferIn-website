@@ -34,11 +34,17 @@ function PostSignupHelpNoReferrers() {
   );
 }
 
+interface LinkedInPostProps {
+  onPostComplete: (hasReferrers?: boolean) => void;
+  hasReferrers?: boolean;
+  showSignUpModal?: boolean;
+}
+
 export default function LinkedInPost({ 
   onPostComplete, 
   hasReferrers = false, 
   showSignUpModal: showSignUpModalProp = false 
-}) {
+}: LinkedInPostProps) {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("free");
   const [userSignedUp, setUserSignedUp] = useState(false);
@@ -74,7 +80,7 @@ Just thought I'd share to help any jobseekers out there..
     onPostComplete(); // Use this instead of window.history.back()
   };
 
-  const handleModalComplete = (option) => {
+  const handleModalComplete = (option: string) => {
     setShowSignUpModal(false);
     setUserSignedUp(true);
     localStorage.setItem('userSignedUp', 'true');

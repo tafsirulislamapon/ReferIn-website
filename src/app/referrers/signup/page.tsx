@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProgressDots } from "@/components/ui/progress-dots";
@@ -10,8 +9,13 @@ import CreateAccount from "@/components/signUp/createAccount.jsx";
 import SignUpLeft from "@/components/signUp/SignUpLeft";
 import Confetti from "@/components/Confetti";
 
+// Define proper type for the data parameter
+interface CreateAccountData {
+  firstName: string;
+  lastName: string;
+}
+
 export default function ReferrersSignup() {
-  const router = useRouter();
   const [showNetworkName, setShowNetworkName] = useState(true);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -28,7 +32,7 @@ export default function ReferrersSignup() {
     }));
   };
 
-  const handleCreateAccountData = (data: any) => {
+  const handleCreateAccountData = (data: CreateAccountData | null) => {
     // Add null check to prevent the error
     if (!data) return;
     
@@ -61,6 +65,7 @@ export default function ReferrersSignup() {
         userName={userData.name || "User"} 
         userImage={userData.image}
         temporary={false}
+        message={`Welcome to ReferIn, ${userData.name || "User"}!`}
         redirectTo="/referrers?state=jobDescription"
       />
     );
