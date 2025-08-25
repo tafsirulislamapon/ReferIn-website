@@ -16,7 +16,7 @@ export default function Home() {
           priority
         />
         <h1 className="text-4xl md:text-6xl font-clash font-bold text-[#08498E] mb-6">
-          Welcome to ReferIn
+          Welcome to ReferIn Website
         </h1>
         <p className="text-xl text-[#08498E]/80 mb-12 max-w-2xl mx-auto">
           Connect job seekers directly with employees who can refer them. 
