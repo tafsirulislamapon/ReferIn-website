@@ -5,7 +5,12 @@ import Stripe from 'stripe';
 console.log('Stripe Secret Key exists:', !!process.env.STRIPE_SECRET_KEY);
 console.log('Stripe Secret Key starts with sk_:', process.env.STRIPE_SECRET_KEY?.startsWith('sk_'));
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+// Add proper error handling for missing environment variable
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2025-07-30.basil',
 });
 

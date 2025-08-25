@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import RefererLeftSide from "@/components/Referer/RefererLeftSide";
 import ReferrerLanding from "@/components/Referer/ReferrerLanding";
@@ -11,7 +11,8 @@ import Navbar from "@/components/Navbar/Navbar";
 import RefererRightSide from "@/components/Referer/RefererRightSide";
 import GotSeekers from "@/components/Referer/GotSeekers";
 
-export default function ReferrersLanding() {
+// Create a separate component that uses useSearchParams
+function ReferrersContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -183,5 +184,34 @@ export default function ReferrersLanding() {
         </div>
       </div>
     </>
+  );
+}
+
+// Loading component for Suspense fallback
+function ReferrersLoading() {
+  return (
+    <>
+      <Navbar userName="John Doe" userEmail="john@example.com" />
+      <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16">
+        <div className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-center gap-0">
+          <RefererLeftSide showCards={false} />
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Main component with Suspense boundary
+export default function ReferrersLanding() {
+  return (
+    <Suspense fallback={<ReferrersLoading />}>
+      <ReferrersContent />
+    </Suspense>
   );
 }
