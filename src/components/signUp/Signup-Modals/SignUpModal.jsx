@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import CreateAccount from "../CreateAccount";
+import CreateAccount from "@/components/signUp/createAccount";
 import PaidSeeker from "../../Seeker/PaidSeeker";
 import LinkedInPost from "../../Seeker/LinkedInPost/LinkedInPost";
 import Loading from "../../ui/Loading";

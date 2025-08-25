@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ProgressDots } from "@/components/ui/progress-dots";
 import SelectedArea from "./SelectedArea";
-import NetworkName from "./NetworkName";
-import CreateAccount from "./CreateAccount";
+import NetworkName from "./networkName";
+import CreateAccount from "./createAccount";
 import DropCv from "./DropCv";
 import Confetti from "@/components/Confetti";
 
