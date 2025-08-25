@@ -1,10 +1,6 @@
 'use client';
 
-interface MessageProps {
-  onPost: () => void;
-}
-
-export default function Message({ onPost }: MessageProps) {
+export default function Message() {
   const predefinedMessage = `Check out ReferIn.io to instantly match you to referral-ready employees at companies your interested in, with relevant vacancies.
 
 Just thought I&apos;d share to help any jobseekers out there..

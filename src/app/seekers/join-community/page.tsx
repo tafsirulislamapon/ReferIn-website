@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import SignUpModal from '@/components/signUp/Signup-Modals/SignUpModal';
 import { hasReferrers } from '@/constants/referrerConfig';
 
@@ -23,13 +22,13 @@ function NoReferrersMessage() {
 export default function JoinCommunityPage() {
   const router = useRouter();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("free");
+  const [selectedOption] = useState("free");
 
   const handleGoToLinkedIn = () => {
     setShowSignUpModal(true);
   };
 
-  const handleModalComplete = (option) => {
+  const handleModalComplete = () => {
     setShowSignUpModal(false);
     localStorage.setItem('userSignedUp', 'true');
     // Use centralized hasReferrers function
