@@ -42,11 +42,9 @@ interface LinkedInPostProps {
 
 export default function LinkedInPost({ 
   onPostComplete, 
-  hasReferrers = false, 
-  showSignUpModal: showSignUpModalProp = false 
+  hasReferrers = false
 }: LinkedInPostProps) {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("free");
   const [userSignedUp, setUserSignedUp] = useState(false);
 
   useEffect(() => {
@@ -76,11 +74,7 @@ Just thought I'd share to help any jobseekers out there..
     }
   };
 
-  const handleGoBack = () => {
-    onPostComplete(); // Use this instead of window.history.back()
-  };
-
-  const handleModalComplete = (option: string) => {
+  const handleModalComplete = () => {
     setShowSignUpModal(false);
     setUserSignedUp(true);
     localStorage.setItem('userSignedUp', 'true');
@@ -89,7 +83,6 @@ Just thought I'd share to help any jobseekers out there..
 
   // Determine the state
   const isNoReferrersFlow = !hasReferrers;
-  const isNoReferrersAfterSignup = isNoReferrersFlow && userSignedUp;
   const isNormalFlow = hasReferrers; // Free seekers with referrers
 
   return (
@@ -157,7 +150,7 @@ Just thought I'd share to help any jobseekers out there..
       <SignUpModal 
         isOpen={showSignUpModal}
         onClose={() => setShowSignUpModal(false)}
-        selectedOption={selectedOption}
+        selectedOption="free"
         onComplete={handleModalComplete}
       />
     </>

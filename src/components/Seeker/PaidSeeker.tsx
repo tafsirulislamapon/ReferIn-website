@@ -3,7 +3,6 @@ import Image from "next/image";
 
 export default function PaidSeeker() {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const [userInput, setUserInput] = useState("");
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +39,7 @@ export default function PaidSeeker() {
 
       // Load Stripe
       const { loadStripe } = await import('@stripe/stripe-js');
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
       
       if (stripe && sessionId) {
         console.log('Redirecting to Stripe checkout...');
