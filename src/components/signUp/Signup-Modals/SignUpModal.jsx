@@ -6,6 +6,7 @@ import CreateAccount from "../CreateAccount";
 import PaidSeeker from "../../Seeker/PaidSeeker";
 import LinkedInPost from "../../Seeker/LinkedInPost/LinkedInPost";
 import Loading from "../../ui/Loading";
+import { hasReferrers } from '@/constants/referrerConfig';
 
 export default function SignUpModal({ isOpen, onClose, selectedOption, onComplete }) {
   const [currentStep, setCurrentStep] = useState("createAccount");
@@ -86,8 +87,8 @@ export default function SignUpModal({ isOpen, onClose, selectedOption, onComplet
     setIsCreatingAccount(false);
     localStorage.setItem('userSignedUp', 'true');
     
-    // Redirect to LinkedIn post page
-    window.location.href = '/seekers/linkedin-post?hasReferrers=true';
+    // Use centralized hasReferrers function
+    window.location.href = `/seekers/linkedin-post?hasReferrers=${hasReferrers()}`;
   };
 
   // Modify the handleNextClick function
@@ -205,7 +206,7 @@ export default function SignUpModal({ isOpen, onClose, selectedOption, onComplet
           {currentStep === "linkedInPost" && (
             <LinkedInPost 
               onPostComplete={handleLinkedInPostComplete}
-              hasReferrers={true}
+              hasReferrers={hasReferrers()}
             />
           )}
         </div>

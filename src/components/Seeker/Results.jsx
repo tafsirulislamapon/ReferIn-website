@@ -5,12 +5,16 @@ import { useRouter } from 'next/navigation';
 import confetti from 'canvas-confetti';
 import BlueTick from '../ui/BlueTick';
 import SignUpModal from '../signUp/Signup-Modals/SignUpModal';
+import { getReferrerCount, hasReferrers } from '@/constants/referrerConfig';
 
 export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }) {
   const router = useRouter();
   const [cvFile, setCvFile] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+
+  // Use centralized referrer count
+  const actualReferrerCount = getReferrerCount();
 
   useEffect(() => {
     // confetti effect function
@@ -52,7 +56,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
     };
 
     // Only show confetti if we have referrers
-    if (referrerCount > 0) {
+    if (actualReferrerCount > 0) {
       triggerConfetti();
 
       const interval = setInterval(triggerConfetti, 1200);
@@ -66,7 +70,7 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
         clearTimeout(timer);
       };
     }
-  }, [referrerCount]);
+  }, [actualReferrerCount]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -102,8 +106,8 @@ export default function Results({ onPayment, onGoToLinkedIn, referrerCount = 0 }
       // Redirect to feedback page
       router.push('/seekers/feedback');
     } else {
-      // Redirect to LinkedIn post page
-      router.push('/seekers/linkedin-post?hasReferrers=true');
+      // Use centralized hasReferrers function
+      router.push(`/seekers/linkedin-post?hasReferrers=${hasReferrers()}`);
     }
   };
 

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import SignUpModal from '@/components/signUp/Signup-Modals/SignUpModal';
+import { hasReferrers } from '@/constants/referrerConfig';
 
 // Component for no referrers message (copied from LinkedInPost component)
 function NoReferrersMessage() {
@@ -31,8 +32,8 @@ export default function JoinCommunityPage() {
   const handleModalComplete = (option) => {
     setShowSignUpModal(false);
     localStorage.setItem('userSignedUp', 'true');
-    // After signup, redirect to LinkedIn post page
-    router.push('/seekers/linkedin-post?hasReferrers=false');
+    // Use centralized hasReferrers function
+    router.push(`/seekers/linkedin-post?hasReferrers=${hasReferrers()}`);
   };
 
   return (

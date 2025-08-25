@@ -4,11 +4,55 @@ import Image from "next/image";
 export default function PaidSeeker() {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
   const [userInput, setUserInput] = useState("");
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userInput.trim()) {
-      setUserInput("");
+    
+    try {
+      setIsProcessingPayment(true);
+      console.log('Starting Stripe payment...');
+      
+      // Create Stripe checkout session
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: 'price_1RwsnV5MNqM5TusZ1jyKRA2s', 
+          userId: 'seeker-user', // You might want to get this from user context
+          successUrl: `${window.location.origin}/seekers/feedback`,
+          cancelUrl: `${window.location.origin}/seekers`,
+        }),
+      });
+
+      console.log('API response status:', response.status);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(`API Error: ${errorData.error || 'Unknown error'}`);
+      }
+
+      const { sessionId } = await response.json();
+      console.log('Session ID received:', sessionId);
+
+      // Load Stripe
+      const { loadStripe } = await import('@stripe/stripe-js');
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+      
+      if (stripe && sessionId) {
+        console.log('Redirecting to Stripe checkout...');
+        await stripe.redirectToCheckout({ sessionId });
+      } else {
+        throw new Error('Failed to load Stripe or get session ID');
+      }
+
+    } catch (error) {
+      console.error('Payment error:', error);
+      setIsProcessingPayment(false);
+      alert(`Payment failed: ${error.message}. Please try again.`);
     }
   };
 
@@ -71,9 +115,19 @@ export default function PaidSeeker() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <button
             type="submit"
-            className="w-full bg-theme-button hover:bg-theme-button-hover text-theme-button py-5 rounded-xl font-semibold transition-colors text-xl"
+            disabled={isProcessingPayment}
+            className={`w-full bg-theme-button hover:bg-theme-button-hover text-theme-button py-5 rounded-xl font-semibold transition-colors text-xl ${
+              isProcessingPayment ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           >
-            Find more refer ready employees
+            {isProcessingPayment ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Processing Payment...
+              </div>
+            ) : (
+              'Find more refer ready employees'
+            )}
           </button>
         </form>
       </div>

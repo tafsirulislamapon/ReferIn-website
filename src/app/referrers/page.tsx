@@ -82,8 +82,8 @@ export default function ReferrersLanding() {
   };
 
   const handlePostComplete = () => {
-    setCurrentState('dashboard');
-    window.history.pushState(null, '', '/referrers?state=dashboard');
+    setCurrentState('vacancy-submitted');
+    window.history.pushState(null, '', '/referrers?state=vacancy-submitted');
   };
 
   // New handler for GotSeekers
@@ -169,6 +169,23 @@ export default function ReferrersLanding() {
         </div>
       </>
     );
+  }
+
+  if (currentState === 'vacancy-submitted') {
+    const DashboardLayout = ({ children }) => (
+      <>
+        <Navbar userName="John Doe" userEmail="john@example.com" />
+        <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16">
+          <div className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-center gap-0">
+            <RefererLeftSide showCards={true} />
+            {children}
+          </div>
+        </div>
+      </>
+    );
+
+    // Show Thanks component for vacancy-submitted state
+    return <DashboardLayout><Thanks /></DashboardLayout>;
   }
 
   // Initial state (default)

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function ThankYou({ onStartWithAI, hasReferrers = true }) {
+export default function ThankYou({ onStartWithAI, hasReferrers = false }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-theme-bg">
       <div className="relative w-full max-w-[800px] mx-4">

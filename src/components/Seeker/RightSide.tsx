@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LinkedInPost from "./LinkedInPost/LinkedInPost";
-import ThankYou from "./ThankYou";
+import { getReferrerCount } from "@/constants/referrerConfig";
 
 export default function RightSide({ 
   onSubmit 
@@ -12,7 +11,6 @@ export default function RightSide({
   const [jobUrl, setJobUrl] = useState("");
   const [jobDetails, setJobDetails] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const referrerCount = 10; 
 
   const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -21,15 +19,13 @@ export default function RightSide({
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Allow onChange for React, but we'll still restrict typing via onKeyDown
     setJobUrl(e.target.value);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Allow paste (Ctrl+V/Cmd+V), backspace, delete, and navigation keys
     if (
-      !((e.ctrlKey || e.metaKey) && e.key === 'v') && // Allow Ctrl+V or Cmd+V
-      !((e.ctrlKey || e.metaKey) && e.key === 'a') && // Allow Ctrl+A or Cmd+A
+      !((e.ctrlKey || e.metaKey) && e.key === 'v') &&
+      !((e.ctrlKey || e.metaKey) && e.key === 'a') &&
       e.key !== 'Backspace' && 
       e.key !== 'Delete' && 
       e.key !== 'ArrowLeft' && 
@@ -52,13 +48,11 @@ export default function RightSide({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Check if at least one field has content
     const hasJobUrl = jobUrl.trim();
     const hasJobDetails = jobDetails.trim();
     const hasCompanyName = companyName.trim();
     
     if (hasJobUrl || hasJobDetails || hasCompanyName) {
-      // Prioritize job URL, then job details, then company name
       let searchString = "";
       
       if (hasJobUrl) {
@@ -68,6 +62,9 @@ export default function RightSide({
       } else {
         searchString = companyName.trim();
       }
+      
+      // Use centralized referrer count
+      const referrerCount = getReferrerCount();
       
       if (onSubmit) {
         onSubmit(searchString, referrerCount);

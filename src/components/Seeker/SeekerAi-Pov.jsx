@@ -7,6 +7,7 @@ import RightSide from "./RightSide";
 import Results from "./Results";
 import PaidSeeker from "./PaidSeeker";
 import Navbar from "../Navbar/Navbar";
+import { getReferrerCount, hasReferrers } from '@/constants/referrerConfig';
 
 export default function SeekerAiPov() {
   const router = useRouter();
@@ -14,15 +15,16 @@ export default function SeekerAiPov() {
   const [showResults, setShowResults] = useState(false);
   const [hasPaid, setHasPaid] = useState(false);
   const [jobUrl, setJobUrl] = useState("");
-  const [referrerCount, setReferrerCount] = useState(0);
 
   const handleSubmit = (url, count) => {
     setJobUrl(url);
-    setReferrerCount(count || 0);
     setShowCards(true);
     
+    // Use centralized referrer count
+    const referrerCount = getReferrerCount();
+    
     // If no referrers, redirect to join community page
-    if (count === 0) {
+    if (referrerCount === 0) {
       router.push('/seekers/join-community');
     } else {
       setShowResults(true);
@@ -39,8 +41,8 @@ export default function SeekerAiPov() {
   };
 
   const handleGoToLinkedIn = () => {
-    // Redirect to LinkedIn post page
-    router.push('/seekers/linkedin-post?hasReferrers=true');
+    // Use centralized hasReferrers function
+    router.push(`/seekers/linkedin-post?hasReferrers=${hasReferrers()}`);
   };
 
   // Main layout return
@@ -52,7 +54,7 @@ export default function SeekerAiPov() {
       />
       <main className="flex min-h-screen justify-center items-center w-full pt-16 bg-theme-bg">
         <div className="flex flex-col-reverse lg:flex-row w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
-          <LeftSide showCards={showCards} hasPaid={hasPaid} showMatchesText={showResults} />
+          <LeftSide hasPaid={hasPaid} showMatchesText={showResults} />
           {!showResults ? (
             <RightSide onSubmit={handleSubmit} />
           ) : hasPaid ? (
@@ -61,7 +63,7 @@ export default function SeekerAiPov() {
             <Results 
               onPayment={handlePayment} 
               onGoToLinkedIn={handleGoToLinkedIn}
-              referrerCount={referrerCount} 
+              referrerCount={getReferrerCount()} 
             />
           )}
         </div>

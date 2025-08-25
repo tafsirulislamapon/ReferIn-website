@@ -14,8 +14,8 @@ export default function ReferrersDashboard() {
       // Redirect to main referrers page if not authenticated
       router.push('/referrers');
     } else {
-      // Redirect to main referrers page with dashboard state
-      router.push('/referrers?state=dashboard');
+      // Redirect to main referrers page with vacancy-submitted state
+      router.push('/referrers?state=vacancy-submitted');
     }
   }, [router]);
 

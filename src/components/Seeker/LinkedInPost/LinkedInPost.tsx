@@ -36,7 +36,7 @@ function PostSignupHelpNoReferrers() {
 
 export default function LinkedInPost({ 
   onPostComplete, 
-  hasReferrers = true, 
+  hasReferrers = false, 
   showSignUpModal: showSignUpModalProp = false 
 }) {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -44,16 +44,10 @@ export default function LinkedInPost({
   const [userSignedUp, setUserSignedUp] = useState(false);
 
   useEffect(() => {
-    // For demo purposes with 0 referrers, clear localStorage to show the correct flow
-    if (!hasReferrers) {
-      localStorage.removeItem('userSignedUp');
-      setUserSignedUp(false);
-    } else {
-      // Check if user is already signed up for normal flow
-      const isSignedUp = localStorage.getItem('userSignedUp') === 'true';
-      setUserSignedUp(isSignedUp);
-    }
-  }, [hasReferrers]);
+    // Check if user is already signed up from localStorage
+    const isSignedUp = localStorage.getItem('userSignedUp') === 'true';
+    setUserSignedUp(isSignedUp);
+  }, []); // Only run once on component mount
 
   const handlePostToLinkedIn = () => {
     // If user hasn't signed up, show signup modal first
@@ -98,21 +92,20 @@ Just thought I'd share to help any jobseekers out there..
       <div className="w-full max-w-4xl mx-auto bg-white rounded-xl p-8 sm:p-10">
         {/* Main Content */}
         <div className="bg-white rounded-lg">
-          {/* LinkedIn Header - Only show for normal flow or after signup */}
-          {(isNormalFlow || isNoReferrersAfterSignup) && (
-            <div className="flex items-center gap-3 border-b pb-4 mb-6">
-              <Image
-                src="/icons/linkedIn.png"
-                alt="LinkedIn"
-                width={32}
-                height={32}
-              />
-              <span className="font-medium text-lg">Share on LinkedIn</span>
-            </div>
-          )}
+          {/* LinkedIn Header - Show for all flows */}
+          <div className="flex items-center gap-3 border-b pb-4 mb-6">
+            <Image
+              src="/icons/linkedIn.png"
+              alt="LinkedIn"
+              width={32}
+              height={32}
+            />
+            <span className="font-medium text-lg">Share on LinkedIn</span>
+          </div>
           
-          {isNoReferrersAfterSignup && (
-            // No referrers, user signed up - show modified help (without step 2)
+          {/* Show content based on flow */}
+          {isNoReferrersFlow && (
+            // No referrers flow - show help content
             <PostSignupHelpNoReferrers />
           )}
           
@@ -121,25 +114,23 @@ Just thought I'd share to help any jobseekers out there..
             <HelpUs />
           )}
 
-          {/* LinkedIn Post Editor - Only show for normal flow or after signup */}
-          {(isNormalFlow || isNoReferrersAfterSignup) && (
-            <div className="mt-6 border rounded-lg p-4">
-              <Message onPost={handlePostToLinkedIn} />
-              
-              {/* Bottom Actions Bar */}
-              <div className="flex items-center justify-between gap-2 mt-4 border-t pt-4">
-                {/* Post Button */}
-                <div className="ml-auto">
-                  <button 
-                    onClick={handlePostToLinkedIn}
-                    className="bg-[#0A66C2] text-white px-6 py-2 rounded-lg hover:bg-[#084e95] transition-colors font-medium text-base"
-                  >
-                    Post on LinkedIn
-                  </button>
-                </div>
+          {/* LinkedIn Post Editor - Show for all flows */}
+          <div className="mt-6 border rounded-lg p-4">
+            <Message onPost={handlePostToLinkedIn} />
+            
+            {/* Bottom Actions Bar */}
+            <div className="flex items-center justify-between gap-2 mt-4 border-t pt-4">
+              {/* Post Button */}
+              <div className="ml-auto">
+                <button 
+                  onClick={handlePostToLinkedIn}
+                  className="bg-[#0A66C2] text-white px-6 py-2 rounded-lg hover:bg-[#084e95] transition-colors font-medium text-base"
+                >
+                  Post on LinkedIn
+                </button>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Footer */}
