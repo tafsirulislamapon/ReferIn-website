@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProgressDots } from "@/components/ui/progress-dots";
-import NetworkName from "@/components/signUp/NetworkName";
-import CreateAccount from "@/components/signUp/CreateAccount";
+import NetworkName from "@/components/signUp/networkName";
+import CreateAccount from "@/components/signUp/createAccount";
 import SignUpLeft from "@/components/signUp/SignUpLeft";
 import Confetti from "@/components/Confetti";
 
