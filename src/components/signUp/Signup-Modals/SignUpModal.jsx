@@ -61,6 +61,12 @@ export default function SignUpModal({ isOpen, onClose, selectedOption, onComplet
 
       // Load Stripe
       const { loadStripe } = await import('@stripe/stripe-js');
+      
+      // Check if publishable key exists
+      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+        throw new Error('Stripe publishable key is not configured');
+      }
+      
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
       
       if (stripe && sessionId) {
@@ -73,7 +79,21 @@ export default function SignUpModal({ isOpen, onClose, selectedOption, onComplet
     } catch (error) {
       console.error('Payment error:', error);
       setIsProcessingPayment(false);
-      alert(`Payment failed: ${error.message}. Please try again.`);
+      
+      // Provide more specific error messages
+      let errorMessage = 'An unexpected error occurred';
+      
+      if (error.message.includes('STRIPE_SECRET_KEY')) {
+        errorMessage = 'Payment system is not properly configured. Please contact support.';
+      } else if (error.message.includes('API Error')) {
+        errorMessage = error.message.replace('API Error: ', '');
+      } else if (error.message.includes('publishable key')) {
+        errorMessage = 'Payment system configuration error. Please contact support.';
+      } else {
+        errorMessage = error.message;
+      }
+      
+      alert(`Payment failed: ${errorMessage}. Please try again.`);
     }
   };
 
