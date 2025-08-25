@@ -30,6 +30,9 @@ export async function POST(req: NextRequest) {
     
     console.log('Request data:', { priceId, userId, successUrl, cancelUrl });
 
+    // Add success parameter to the success URL
+    const successUrlWithParams = `${successUrl}?success=true&payment_status=complete`;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -39,7 +42,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'payment',
-      success_url: successUrl,
+      success_url: successUrlWithParams,
       cancel_url: cancelUrl,
       metadata: {
         userId: userId,

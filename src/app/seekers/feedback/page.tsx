@@ -17,12 +17,17 @@ function FeedbackContent() {
     const userSignedUp = localStorage.getItem('userSignedUp') === 'true';
     const userHasPaid = localStorage.getItem('seekerHasPaid') === 'true';
     
-    // Check if this is a payment success redirect
+    // Check if this is a payment success redirect from Stripe
     const sessionId = searchParams.get('session_id');
     const paymentStatus = searchParams.get('payment_status');
+    const success = searchParams.get('success');
     
-    // If user just completed payment, mark them as signed up and paid
-    if (sessionId && paymentStatus === 'complete') {
+    console.log('Feedback page - URL params:', { sessionId, paymentStatus, success });
+    console.log('Feedback page - localStorage:', { userSignedUp, userHasPaid });
+    
+    // If user just completed payment (any of these indicators), mark them as signed up and paid
+    if (sessionId || paymentStatus === 'complete' || success === 'true') {
+      console.log('Payment success detected, setting user flags');
       localStorage.setItem('userSignedUp', 'true');
       localStorage.setItem('seekerHasPaid', 'true');
       setIsLoading(false);
@@ -31,17 +36,20 @@ function FeedbackContent() {
     
     // If user has already paid, allow access
     if (userHasPaid) {
+      console.log('User already paid, allowing access');
       setIsLoading(false);
       return;
     }
     
     // If user is signed up but not paid, allow access (they might be in the process)
     if (userSignedUp) {
+      console.log('User signed up, allowing access');
       setIsLoading(false);
       return;
     }
     
     // If none of the above, redirect to seekers page
+    console.log('No valid authentication, redirecting to seekers');
     router.push('/seekers');
   }, [router, searchParams]);
 

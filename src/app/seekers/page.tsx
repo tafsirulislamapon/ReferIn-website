@@ -22,9 +22,13 @@ function SeekersContent() {
     const state = searchParams.get('state');
     const paymentStatus = searchParams.get('payment');
     
+    console.log('Seekers page - URL params:', { state, paymentStatus });
+    
     // Simple authentication check
     const userSignedUp = localStorage.getItem('userSignedUp') === 'true';
     let userHasPaid = localStorage.getItem('seekerHasPaid') === 'true';
+    
+    console.log('Seekers page - localStorage:', { userSignedUp, userHasPaid });
     
     // If payment was successful, mark user as paid
     if (paymentStatus === 'success' && userSignedUp) {
@@ -37,6 +41,7 @@ function SeekersContent() {
     
     // If trying to access dashboard without authentication, redirect to initial
     if (state === 'dashboard' && !userSignedUp) {
+      console.log('Redirecting to seekers - no authentication for dashboard');
       router.push('/seekers');
       return;
     }
