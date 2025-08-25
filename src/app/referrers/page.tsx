@@ -8,7 +8,6 @@ import NoJobDes from "@/components/Referer/NoJobDes";
 import LinkedInPost from "@/components/Referer/LinkedInPost/LinkedInPost";
 import Thanks from "@/components/Referer/Thanks";
 import Navbar from "@/components/Navbar/Navbar";
-import InfoTooltipThemed from "@/components/ui/InfoTooltipThemed";
 import RefererRightSide from "@/components/Referer/RefererRightSide";
 import GotSeekers from "@/components/Referer/GotSeekers";
 
@@ -18,25 +17,13 @@ export default function ReferrersLanding() {
   
   // State management
   const [currentState, setCurrentState] = useState('initial');
-  const [companyDetails, setCompanyDetails] = useState("");
-  const [canAssistCandidates, setCanAssistCandidates] = useState("");
-  const [hasReferralScheme, setHasReferralScheme] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [hasSkippedJobDescription, setHasSkippedJobDescription] = useState(false);
   const [hasSubmittedVacancy, setHasSubmittedVacancy] = useState(false);
-  const [activeTooltip, setActiveTooltip] = useState(null);
   
   // State for GotSeekers functionality
   const [showGotSeekers, setShowGotSeekers] = useState(false);
   const [verifiedCompanyName, setVerifiedCompanyName] = useState("");
   const [seekerCount, setSeekerCount] = useState(0);
-
-  // Tooltip content
-  const tooltipContent = {
-    company: "Provide your company name and location. This helps job seekers understand where opportunities are located and builds trust through workplace transparency.",
-    assistance: "Describe the support you can offer candidates during the referral process. This could include interview preparation, company insights, application guidance, or internal resume submission.",
-    referral: "Employee referral programs reward employees for successfully referring qualified candidates. Typical rewards range from £500-£5000+ cash bonuses, extra vacation days, or other incentives when referrals are hired."
-  };
 
   useEffect(() => {
     const state = searchParams.get('state');
@@ -44,7 +31,6 @@ export default function ReferrersLanding() {
     const skippedJobDesc = localStorage.getItem('skippedJobDescription') === 'true';
     const submittedVacancy = localStorage.getItem('hasSubmittedVacancy') === 'true';
     
-    setIsAuthenticated(userSignedUp);
     setHasSkippedJobDescription(skippedJobDesc);
     setHasSubmittedVacancy(submittedVacancy);
     
@@ -59,10 +45,6 @@ export default function ReferrersLanding() {
   }, [searchParams, router]);
 
   // Navigation handlers
-  const handleContinueWithRegistration = () => {
-    router.push('/referrers/signup');
-  };
-
   const handleJobDescriptionSubmit = () => {
     localStorage.removeItem('skippedJobDescription');
     setHasSkippedJobDescription(false);
@@ -87,21 +69,10 @@ export default function ReferrersLanding() {
   };
 
   // New handler for GotSeekers
-  const handleShowGotSeekers = (show, companyName, count) => {
+  const handleShowGotSeekers = (show: boolean, companyName: string, count: number) => {
     setShowGotSeekers(show);
     setVerifiedCompanyName(companyName);
     setSeekerCount(count);
-  };
-
-  // Tooltip handlers
-  const toggleTooltip = (tooltipId) => {
-    setActiveTooltip(activeTooltip === tooltipId ? null : tooltipId);
-  };
-
-  const handleOutsideClick = (e) => {
-    if (!e.target.closest('.tooltip-container')) {
-      setActiveTooltip(null);
-    }
   };
 
   // Render different states
@@ -119,7 +90,7 @@ export default function ReferrersLanding() {
   }
 
   if (currentState === 'dashboard') {
-    const DashboardLayout = ({ children }) => (
+    const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
       <>
         <Navbar userName="John Doe" userEmail="john@example.com" />
         <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16">
@@ -172,7 +143,7 @@ export default function ReferrersLanding() {
   }
 
   if (currentState === 'vacancy-submitted') {
-    const DashboardLayout = ({ children }) => (
+    const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
       <>
         <Navbar userName="John Doe" userEmail="john@example.com" />
         <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16">
@@ -192,7 +163,7 @@ export default function ReferrersLanding() {
   return (
     <>
       <Navbar userName="John Doe" userEmail="john@example.com" />
-      <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16" onClick={handleOutsideClick}>
+      <div className="min-h-screen bg-theme-bg flex flex-col lg:flex-row items-center justify-center pt-16">
         <div className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-center gap-0">
           {/* Left Side - Show GotSeekers if seekers found, otherwise show iframe/cards */}
           {showGotSeekers ? (
