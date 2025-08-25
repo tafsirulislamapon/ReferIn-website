@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PaidSeeker from '@/components/Seeker/PaidSeeker';
 import LeftSide from '@/components/Seeker/LeftSide';
 import Navbar from '@/components/Navbar/Navbar';
 
-export default function FeedbackPage() {
+// Create a separate component that uses useSearchParams
+function FeedbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -72,5 +73,26 @@ export default function FeedbackPage() {
         </div>
       </main>
     </>
+  );
+}
+
+// Loading component for Suspense fallback
+function FeedbackLoading() {
+  return (
+    <div className="min-h-screen bg-theme-bg flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function FeedbackPage() {
+  return (
+    <Suspense fallback={<FeedbackLoading />}>
+      <FeedbackContent />
+    </Suspense>
   );
 }
