@@ -18,11 +18,6 @@ export default function FeedbackPage() {
     }
   }, [router]);
 
-  const handleSubmit = () => {
-    // After successful submission, redirect to dashboard
-    router.push('/seekers?state=dashboard&payment=success');
-  };
-
   return (
     <>
       <Navbar 

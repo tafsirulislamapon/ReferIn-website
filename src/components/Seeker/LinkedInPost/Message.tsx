@@ -1,11 +1,17 @@
 'use client';
 
-export default function Message() {
-  const predefinedMessage = `Check out ReferIn.io to instantly match you to referral-ready employees at companies your interested in, with relevant vacancies.
+interface MessageProps {
+  onPost?: () => void;
+}
 
-Just thought I&apos;d share to help any jobseekers out there..
+export default function Message({ }: MessageProps) {
+  const predefinedMessage = `Just joined ReferIn.io — a platform that connects job seekers directly with employees who can refer them.
 
-#JobReferrals #JobSeekers #ReferIn`;
+I'm happy to support talented professionals by pointing them in the right direction when possible.
+
+If you're exploring new opportunities, feel free to check it out.
+
+#ReferIn #CareerGrowth #JobReferrals #Networking`;
 
   return (
     <div className="min-h-[200px]">

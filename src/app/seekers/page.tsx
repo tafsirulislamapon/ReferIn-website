@@ -56,7 +56,7 @@ export default function SeekersPage() {
         <main className="flex min-h-screen justify-center items-center w-full pt-16 bg-theme-bg">
           <div className="flex flex-col-reverse lg:flex-row w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
             {/* Left Side - Shows referrer cards with "Keep going!" layout */}
-            <LeftSide showCards={true} hasPaid={hasPaid} />
+            <LeftSide hasPaid={hasPaid} />
             
             {/* Right Side - Shows PaidSeeker component with the form */}
             <PaidSeeker />

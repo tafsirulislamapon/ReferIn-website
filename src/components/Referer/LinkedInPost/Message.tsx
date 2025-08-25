@@ -1,10 +1,10 @@
 'use client';
 
 interface MessageProps {
-  onPost: () => void;
+  onPost?: () => void;
 }
 
-export default function Message({ onPost }: MessageProps) {
+export default function Message({ onPost: _ }: MessageProps) {
   const predefinedMessage = `Just joined ReferIn.io — a platform that connects job seekers directly with employees who can refer them.
 
 I'm happy to support talented professionals by pointing them in the right direction when possible.
